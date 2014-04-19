@@ -1,0 +1,14 @@
+# patterns to ignore
+*.pyc
+/logs/*.*
+
+# specific directories to ignore
+/.sass-cache
+/static/bower_components
+/tmp
+
+# specific files to ignore
+/fib
+/BrowserNotifier
+/fibserve.db
+
