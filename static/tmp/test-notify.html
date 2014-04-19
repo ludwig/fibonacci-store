@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>quick test of notifications</title>
+
+    <!-- jquery -->
+    <script src="/static/bower_components/jquery/dist/jquery.js"></script>
+
+    <!-- humane.js -->
+    <link rel="stylesheet" href="/static/bower_components/humane-js/themes/libnotify.css" />
+    <script src="/static/bower_components/humane-js/humane.js"></script>
+
+    <!-- notify.js -->
+    <script src="/static/bower_components/notify.js/notify.js"></script>
+
+</head>
+<body>
+    <button id="humane-notify-btn" type="submit">Notify me via humane.js</button>
+    <button id="desktop-notify-btn" type="submit">Notify me via notify.js</button>
+
+    <script type="text/javascript" charset="utf-8">
+        $(function() {
+
+            // humane.js notifications
+            var hnb = document.getElementById('humane-notify-btn');
+            hnb.onclick = function() {
+                console.log('humane-notify-btn clicked!');
+                humane.log('hello world', {timeout: 0, clickToClose: true, addnCls: 'humane-error'});
+            };
+
+            // notify.js notifications
+            var desktopNotification = new Notify('hello desktop world!', {
+                body: 'This is an awesome notification',
+                notifyShow: onDesktopNotifyShow
+            });
+            function onDesktopNotifyShow() {
+                console.log('desktop notification was shown!');
+            }
+            var dnb = document.getElementById('desktop-notify-btn');
+            dnb.onclick = function() {
+                Notify.requestPermission();
+                console.log('desktop-notify-btn clicked!');
+                desktopNotification.show();
+            };
+
+        });
+    </script>
+</body>
+</html>
