@@ -1,0 +1,40 @@
+--high-------------------------------------------------------------------------
+browser should display a notification after receiving a json payload from the webocket
+make sure only logged in users request a websocket
+
+
+--normal-----------------------------------------------------------------------
+BN should keep map of active websocket connections per user
+BN should receive json payload from 'tasks:all', containing user_id and task_result 
+BN should notify all user's active websockets that a result is available
+
+--low--------------------------------------------------------------------------
+set up nginx to serve static files [/static] from local directory
+set up nginx to forward [/ws] websocket requests to BrowserNotifier daemon
+set up nginx to forward all other web requests to flask fastcgi process
+add users table to flask website (use sqlite)
+write status page to show pending/successful/failed requests by user
+write admin page for showing active websocket connections
+load websocket only when user has pending requests?
+if websocket is closed and it should be open, should browser retry connection every X minutes?
+look into humane.js -- http://wavded.github.io/humane-js/
+look into alertify.js -- http://fabien-d.github.io/alertify.js/
+look into the HTML5 Web Notification API (see also the notify.js wrapper)
+look into notify.js -- http://alxgbsn.co.uk/2013/02/20/notify-js-a-handy-wrapper-for-the-web-notifications-api/
+
+--done-------------------------------------------------------------------------
+make form for requesting calculation of a fibonacci number
+get basic flask site running
+BN should forward redis messages to the browser 
+BN should listen for websocket connections
+BN should subscribe to redis channel 'tasks:all'
+subscribe to redis channel from golang and make sure it can receive those messages
+publish to redis channel from python, and make sure messages get sent out
+create file BrowserNotifier.go (BN)
+use python subprocess module to call c program, but redirecting its stdout to a file
+write program to compute arbitrary fibonacci number with GMP
+do few basic websocket examples in golang
+connect to redis from golang
+set up redis as result backend for celery
+install celery
+install redis
