@@ -1,0 +1,78 @@
+{% extends "layout.html" %}
+
+{% block extracss %}
+<style type="text/css" media="all">
+    #main-container {
+        width: 100%;
+        overflow: hidden; /* contains floated elements */
+        /*background: #000;*/
+    }
+    #available-results {
+        float: left;
+        width: 50%;
+        /*background-color: #bbb;*/
+    }
+    #pending-requests {
+        float: left;
+        width: 30%;
+        /*background-color: #eee;*/
+    }
+    #ws-status {
+        float: left;
+        width: 20%;
+        /*background-color: #bbb;*/
+    }
+    #ws-conn {
+        font-style: italic;
+    }
+</style>
+{% endblock %}
+
+{% block extrajs %}
+<script src="/static/js/show_fibs.js"></script>
+{% endblock %}
+
+{% block body %}
+
+  {% if g.user %}
+    <form action="{{ url_for('request_fib') }}" method="post" class="add-entry">
+        <dl>
+            <dt>N = <input type="text" size="30" name="N">
+            <input type="submit" value="Request calculation of Fibonacci(N)" ></dt>
+        </dl>
+    </form>
+
+    <div id="main-container">
+        <div id="available-results">
+            <h3>Available Results</h3>
+            <ul class="results">
+            {% for result in results %}
+                <li>{{ result }}</li>
+            {% else %}
+                <li><em>No results in database</em></li>
+            {% endfor %}
+            </ul>
+        </div>
+
+        <div id="pending-requests">
+            <h3>Pending Requests</h3>
+            <ul class="pending">
+            {% for N in pending %}
+                <li>Fibonacci({{ N }})</li>
+            {% else %}
+                <li><em>No pending requests!</em></li>
+            {% endfor %}
+            </ul>
+        </div>
+
+        <div id="ws-status">
+            <h3><img id="ws-img" src="/static/img/ws-red.png">WebSocket</h3>
+            <span id="ws-conn">No connection</span>
+            <div id="ws-log"></div>
+        </div>
+    </div>
+  {% else %}
+    <p>Please login to see your results</p>
+  {% endif %}
+
+{% endblock %}
